@@ -88,17 +88,43 @@ function Team(props){
 // createClass is a helper class.
 // the only REQUIRED property, is render, which will return a DOM element
 var Counter = React.createClass({
+
+	// A set React property (like render), is getInitialState
+	getInitialState: function() {
+        // this function sets the initial state value of a variable
+        // it returns a single object
+        var stateObject = {
+            gamesBack: 0
+        }
+        return stateObject;
+    },
+        addGame: function(){
+			this.setState({
+				gamesBack: this.state.gamesBack + 1
+			})
+			// BAD!!!!
+			// EVIL!!!!
+			// this.state.gamesBack++
+
+		},
+		loseGame: function() {
+            this.setState({
+                gamesBack: this.state.gamesBack - 1
+            })
+        },
+
 	render: function(){
 		// back to the good old days...
 		return(
 			<div className="counter">
-				<button className="btn btn-success">+</button>
-				<div className="games-back">games-back will go here</div>
-				<button className="btn btn-danger">-</button>			
+				<button onClick={this.addGame} className="btn btn-success">+</button>
+				{/*this = the counter component that we are calling*/}
+				<div className="games-back">{this.state.gamesBack}</div>
+				<button onClick={this.loseGame} className="btn btn-danger">-</button>
 			</div>
 		)
 	}
-})
+});
 
 function Application(props){
 	return(
@@ -128,4 +154,4 @@ ReactDOM.render(
 	// title and teams are defined up top
 	<Application title="Braves Scoreboard" teams={teams} />,
 	document.getElementById('root')
-)
+);
