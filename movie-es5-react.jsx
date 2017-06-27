@@ -11,7 +11,7 @@ var Application = React.createClass({
 
     getInitialState: function(){
         return {
-            moviesToShow : [1,2]
+            moviesToShow : [1,2,3,4,5]
         }
     },
 // component will run on the very first render and never again
@@ -22,9 +22,15 @@ var Application = React.createClass({
         $.getJSON(url, function(movieData){
             console.log(this);
             var nowPlayingArray =  [];
-            for(let i = 0; i < movieData.results.length; i++){
-                nowPlayingArray.push(movieData.results[i]);
-            }
+
+            // ****the 'for' way****
+            // for(let i = 0; i < movieData.results.length; i++){
+            //     nowPlayingArray.push(movieData.results[i]);
+            // }
+
+            movieData.results.map((movie,index)=>{
+                nowPlayingArray.push(movie);
+            });
             // the this below is the 'this' appended to bind farther below.constructor
             // bind makes the this apply to the AJAX 'this'
             console.log(nowPlayingArray)
@@ -50,7 +56,7 @@ var Application = React.createClass({
                       //  poster images to return.
                             var moviePoster = imagePath + movie.poster_path
                             // *****POSTER is dumb. poster is basically the opposite of state. very good at displaying data*****
-                            return <Poster key={index} poster={moviePoster} />
+                            return <Poster pointless="huh" key={index} poster={moviePoster} />
                         })}
                     </div>
                 </div>
